@@ -1,0 +1,20 @@
+[
+  {
+    "SourceFileName": "source",
+    "DestFileName": "dest",
+    "Slides": [
+      {
+        "SourceSlideIndex": 1,
+        "DestSlideIndex": 1
+      },
+      {
+        "SourceSlideIndex": 2,
+        "DestSlideIndex": 2
+      },
+      {
+        "SourceSlideIndex": 3,
+        "DestSlideIndex": 3
+      }
+    ]
+  }
+]
