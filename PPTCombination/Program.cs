@@ -1,8 +1,4 @@
-﻿using NetOffice.OfficeApi.Enums;
-using NetOffice.PowerPointApi;
-using NetOffice.PowerPointApi.Enums;
-using NetOffice.PowerPointApi.Tools;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,11 +9,19 @@ namespace PPTCombination
 {
     class Program
     {
+        private static string _configFileName = "config.json";
+
         static void Main(string[] args)
         {
+            Console.WriteLine("正在读取配置文件...\n");
+            if (args.Length > 0 && !string.IsNullOrEmpty(args[0]))
+            {
+                _configFileName = args[0].Trim();
+            }
+
             try
             {
-                var configList = ReadFromJson();
+                var configList = ReadFromJson(_configFileName);
 
                 DoCombination(configList);
 
@@ -32,9 +36,9 @@ namespace PPTCombination
             }
         }
 
-        static IList<Config> ReadFromJson()
+        static IList<Config> ReadFromJson(string fileName)
         {
-            var jsonConfig = File.ReadAllText("config.json");
+            var jsonConfig = File.ReadAllText(fileName);
             return JsonConvert.DeserializeObject<IList<Config>>(jsonConfig.Trim());
         }
 
