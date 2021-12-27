@@ -70,10 +70,45 @@ namespace PPTCombination
                 {
                     var sourceSlide = sourcePresentation.Slides.Range(slide.SourceSlideIndex);
 
-                    // copy slide
-                    sourceSlide.Copy();
-                    destPresentation.Slides.Paste(slide.DestSlideIndex + step);
-                    step++;
+                    if (slide.Shapes != null && slide.Shapes.Any())
+                    {
+                        // copy shapes
+
+                        var shapes = sourceSlide.Shapes.ToList();
+                        foreach (var shape in shapes)
+                        {
+                            try
+                            {
+                                var shapeConfig = slide.Shapes.FirstOrDefault(d =>
+                                    d.SourceLeft.HasValue && Util.Equals(d.SourceLeft.Value, shape.Left) &&
+                                    d.SourceTop.HasValue && Util.Equals(d.SourceTop.Value, shape.Top));
+
+                                if (shapeConfig == null)
+                                {
+                                    continue;
+                                }
+
+                                shape.Copy();
+                                var tempRange = destPresentation.Slides.Range(slide.DestSlideIndex + step).Shapes.Paste();
+                                if (shapeConfig.DestLeft.HasValue && shapeConfig.DestTop.HasValue)
+                                {
+                                    tempRange.Left = shapeConfig.DestLeft.Value;
+                                    tempRange.Top = shapeConfig.DestTop.Value;
+                                }
+                            }
+                            catch
+                            {
+                                // ignore
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // copy slide
+                        sourceSlide.Copy();
+                        destPresentation.Slides.Paste(slide.DestSlideIndex + step);
+                        step++;
+                    }
                 }
 
                 destPPT.Save(config.DestFileName + "new");
