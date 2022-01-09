@@ -18,6 +18,7 @@
   <ItemGroup>
     <PackageReference Include="NetOffice.PowerPoint" Version="1.7.4.11" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NPOI" Version="2.5.5" />
   </ItemGroup>
 
   <ItemGroup>

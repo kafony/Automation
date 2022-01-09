@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -21,7 +19,7 @@ namespace PPTCombination
 
             try
             {
-                var configList = ReadFromJson(_configFileName);
+                var configList = ConfigHelper.ReadFromFile(_configFileName);
 
                 DoCombination(configList);
 
@@ -34,12 +32,6 @@ namespace PPTCombination
                 Console.WriteLine("\n\n按任意键退出");
                 Console.ReadKey();
             }
-        }
-
-        static IList<Config> ReadFromJson(string fileName)
-        {
-            var jsonConfig = File.ReadAllText(fileName);
-            return JsonConvert.DeserializeObject<IList<Config>>(jsonConfig.Trim());
         }
 
         static void DoCombination(IList<Config> configList)
