@@ -1,6 +1,6 @@
 ﻿using System;
 using PPT = NetOffice.PowerPointApi;
-using PPTUtil = NetOffice.PowerPointApi.Tools;
+using PPTUtil = NetOffice.PowerPointApi.Tools.Contribution;
 
 namespace PPTCombination
 {
