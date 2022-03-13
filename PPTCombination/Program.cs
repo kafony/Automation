@@ -103,7 +103,10 @@ namespace PPTCombination
                     }
                 }
 
-                destPPT.Save(config.DestFileName + "new");
+                destPPT.CreateShape();
+                destPPT.CreateMacro();
+
+                destPPT.Save(config.DestFileName + "new", NetOffice.PowerPointApi.Tools.Contribution.DocumentFormat.Macros);
 
                 sourcePPT.Dispose();
                 destPPT.Dispose();
